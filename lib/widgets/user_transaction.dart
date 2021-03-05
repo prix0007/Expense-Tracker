@@ -31,13 +31,15 @@ class _UserTransactionsState extends State<UserTransactions> {
     });
   }
 
+  void _deleteTransaction(String id) {}
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Column(
       children: <Widget>[
         NewTransaction(_addNewTransaction),
-        TransactionList(_userTransactions)
+        TransactionList(_userTransactions, _deleteTransaction)
       ],
     );
   }
