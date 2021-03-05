@@ -1,8 +1,9 @@
 import 'package:expense_tracker/models/transaction.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 
 import '../models/transaction.dart';
+import 'transaction_item.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
@@ -28,38 +29,7 @@ class TransactionList extends StatelessWidget {
           })
         : ListView.builder(
             itemBuilder: (ctx, index) {
-              return Card(
-                elevation: 4,
-                margin: EdgeInsets.all(10),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
-                    child: Padding(
-                      padding: EdgeInsets.all(6),
-                      child: FittedBox(
-                          child: Text('\$${transactions[index].amount}')),
-                    ),
-                  ),
-                  title: Text(transactions[index].title,
-                      style: Theme.of(context).textTheme.title),
-                  subtitle: Text(
-                      DateFormat.yMMMd().format(transactions[index].date),
-                      style: TextStyle(fontSize: 12, color: Colors.grey)),
-                  trailing: MediaQuery.of(context).size.width > 400
-                      ? TextButton.icon(
-                          onPressed: () {
-                            _deleteTransaction(transactions[index].id);
-                          },
-                          icon: Icon(Icons.delete),
-                          label: Text('Delete Tx'))
-                      : IconButton(
-                          icon: Icon(Icons.delete),
-                          color: Colors.red,
-                          onPressed: () {
-                            _deleteTransaction(transactions[index].id);
-                          }),
-                ),
-              );
+              return TransactionItem(transactions[index], _deleteTransaction);
             },
             itemCount: transactions.length,
           );
